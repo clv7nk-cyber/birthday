@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FINALLY THE DAY HAS COME 
-    3 MARCH /title>
+<title>For You 🤍</title>
 
 <style>
 body {
@@ -30,11 +29,13 @@ body {
     position: relative;
     transition: 0.5s ease;
 }
- h1 {
-        margin-bottom: 20px;
- }
+
+h1 {
+    margin-bottom: 20px;
+}
+
 button {
-    margin-top: 15px;
+    margin: 10px;
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
@@ -67,7 +68,7 @@ button:hover {
 }
 
 .end-images img {
-    width: 80px;
+    width: 90px;
     margin: 10px;
     animation: float 3s ease-in-out infinite;
 }
@@ -80,9 +81,9 @@ button:hover {
 
 .stitch {
     position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 100px;
+    bottom: -10px;
+    right: -10px;
+    width: 110px;
     animation: bounce 2s infinite;
 }
 
@@ -112,26 +113,50 @@ button:hover {
 
 <div class="card" id="mainCard">
     <h1>🤍</h1>
-    <p>My Small gift for a wonderfull person .</p>
-    <button onclick="openCard()">OPEN </button>
+    <p>My small gift for a wonderful person.</p>
+    <button onclick="openCard()">OPEN</button>
 </div>
 
 <div class="card hidden" id="birthdayCard">
     <img src="background.jpg" class="photo">
-    <h1>Happy Birthday, MY DUMBASS 🤍</h1>
-    <p>NEE ETHAA .<br> NEE PODIIII.</p>
-    <button onclick="showSecret()">Open Final Surprise</button>
+    <h1>Happy Birthday 🤍</h1>
+    <p> i really dont care abt u thou.<br>(maybe im lying or not) </p>
+
+    <button onclick="showMemory()">Memory</button>
+    <button onclick="showWhy()">Why You Matter</button>
+    <button onclick="showSecret()">Final Surprise</button>
 </div>
 
+<div class="card hidden" id="memory">
+    <h1>A Memory 🤍</h1>
+    <p>
+   every morng a person who loves to sleep ,wake up at 530 
+        knowing a dumbass will call me and i would get a peacefull sleep
+        talking to u has became my comfort zone for my gloofy side and 
+        my caring side even if i dont  act like it u do matter to me
+        more than normal ppl i do love my crazy side which is you 🤍🤍🤍 
+    </p>
+    <button onclick="back()">Back</button>
+</div>
+
+<div class="card hidden" id="why">
+    <h1>Why You Matter 🤍</h1>
+    <p>
+    • You always Mattered to me .<br>
+    • i mainly miss the engine sound it is my white nose .<br>
+    • You’re annoying… but I’d still choose you.
+    </p>
+    <button onclick="back()">Back</button>
+</div>
 
 <div class="card hidden" id="secret">
     <h1>Just This 🤍</h1>
     <p>
-    MORE MEMORIES , MORE LOVE .<br>
-  I Hate the day when we dont call at night .<br><br>
-   I loved playibg roblox with u eveb if u die half of the time <br>
-    HAPPY BDAY MY DORA MAY THIS YEAR BE BETTER (CUZ IM THERE HAHA)
-        FROM FAKE KUNDI 
+    More memories, more love.<br>
+    I hate the days when we don’t call at night.<br><br>
+    I loved playing Roblox with you even if you die half the time.<br>
+    HAPPY BDAY MY DORA. MAY THIS YEAR BE BETTER (CUZ I'M THERE HAHA).<br><br>
+    From Fake Kundi.
     </p>
 
     <div class="end-images">
@@ -150,9 +175,24 @@ function openCard() {
     document.getElementById('birthdayCard').classList.remove('hidden');
 }
 
+function showMemory() {
+    hideAll();
+    document.getElementById('memory').classList.remove('hidden');
+}
+
+function showWhy() {
+    hideAll();
+    document.getElementById('why').classList.remove('hidden');
+}
+
 function showSecret() {
     hideAll();
     document.getElementById('secret').classList.remove('hidden');
+}
+
+function back() {
+    hideAll();
+    document.getElementById('birthdayCard').classList.remove('hidden');
 }
 
 function hideAll() {
@@ -177,7 +217,6 @@ function celebrate() {
 
 </body>
 </html>
-
 
 
 
