@@ -29,7 +29,9 @@ body {
     position: relative;
     transition: 0.5s ease;
 }
-
+ h1 {
+        margin-bottom: 20px;
+ }
 button {
     margin-top: 15px;
     padding: 10px 20px;
@@ -108,13 +110,20 @@ button:hover {
 <body>
 
 <div class="card" id="mainCard">
-    <h1>Hey… 🤍</h1>
+    <h1>🤍</h1>
     <p>This is just for you.</p>
     <button onclick="openCard()">Open Your Card</button>
 </div>
 
 <div class="card hidden" id="birthdayCard">
     <img src="background.jpg" class="photo">
+    <h1>Happy Birthday, [HER NAME] 🤍</h1>
+    <p>Some people don’t leave your life.<br>They just change roles.</p>
+    <button onclick="showSecret()">Open Final Surprise</button>
+</div>
+
+<div class="card hidden" id="birthdayCard">
+    <img src="her.jpg" class="photo">
     <h1>Happy Birthday, [HER NAME] 🤍</h1>
     <p>Some people don’t leave your life.<br>They just change roles.</p>
     <button onclick="showSecret()">Open Final Surprise</button>
@@ -172,6 +181,7 @@ function celebrate() {
 
 </body>
 </html>
+
 
 
 
