@@ -118,70 +118,44 @@ button:hover {
 
 /* -------- CAKE SECTION -------- */
 
-/* -------- BETTER CAKE DESIGN -------- */
 
 .cake {
     position: relative;
-    width: 220px;
-    margin: 30px auto;
-}
-
-.layer-bottom {
-    width: 220px;
-    height: 80px;
-    background: #ff8fab;
-    border-radius: 15px;
-}
-
-.layer-top {
-    width: 180px;
-    height: 60px;
-    background: #ffb3c6;
-    border-radius: 15px;
-    position: absolute;
-    top: -50px;
-    left: 20px;
-}
-
-.icing {
-    width: 180px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    top: -60px;
-    left: 20px;
+    width: 200px;
+    height: 120px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    margin: 20px auto;
 }
 
 .candle {
-    width: 10px;
-    height: 35px;
-    background: white;
     position: absolute;
-    top: -95px;
+    top: -40px;
+    width: 10px;
+    height: 40px;
+    background: white;
+    left: 95px;
 }
 
-.candle:nth-child(4) { left: 70px; }
-.candle:nth-child(5) { left: 105px; }
-.candle:nth-child(6) { left: 140px; }
-
 .flame {
-    width: 14px;
+    position: absolute;
+    top: -60px;
+    left: 92px;
+    width: 16px;
     height: 20px;
     background: orange;
     border-radius: 50%;
-    position: absolute;
-    top: -115px;
-    animation: flicker 0.3s infinite alternate;
+    animation: flicker 0.2s infinite alternate;
 }
 
-.flame:nth-child(7) { left: 68px; }
-.flame:nth-child(8) { left: 103px; }
-.flame:nth-child(9) { left: 138px; }
-
 @keyframes flicker {
-    from { transform: scale(1); opacity: 0.9; }
-    to { transform: scale(1.2); opacity: 1; }
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+#countdown {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
 </style>
@@ -346,6 +320,7 @@ function startCountdown() {
 
 </body>
 </html>
+
 
 
 
