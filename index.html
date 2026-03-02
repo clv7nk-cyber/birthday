@@ -7,11 +7,15 @@
 
 <style>
 
-            
+/* -------- CLEANED BODY (merged into one) -------- */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+    background-image: url("PAGE 1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: black;
     display: flex;
     justify-content: center;
@@ -20,16 +24,8 @@ body {
     text-align: center;
     overflow: hidden;
 }
-body {
-    background-image: url("PAGE 1.jpg");
-    background-size: cover;        /* makes image fill screen */
-    background-position: center;   /* keeps image centered */
-    background-repeat: no-repeat;  /* prevents tiling */
-    background-attachment: fixed;  /* optional: parallax effect */
-}
-    body {
-    color: black;
-}
+
+/* -------- CARD -------- */
 .card {
     background: rgba(255,255,255,0.08);
     padding: 40px;
@@ -45,8 +41,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-
-    button {
+button {
     margin: 10px;
     padding: 10px 20px;
     border: none;
@@ -75,6 +70,7 @@ button:hover {
     border: 3px solid white;
 }
 
+/* -------- END IMAGES -------- */
 .end-images {
     margin-top: 20px;
 }
@@ -104,6 +100,7 @@ button:hover {
     50% { transform: translateY(-15px); }
 }
 
+/* -------- CONFETTI -------- */
 .confetti {
     position: fixed;
     width: 10px;
@@ -118,10 +115,54 @@ button:hover {
         transform: translateY(110vh) rotate(360deg);
     }
 }
+
+/* -------- CAKE SECTION -------- */
+
+.cake {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.candle {
+    position: absolute;
+    top: -40px;
+    width: 10px;
+    height: 40px;
+    background: white;
+    left: 95px;
+}
+
+.flame {
+    position: absolute;
+    top: -60px;
+    left: 92px;
+    width: 16px;
+    height: 20px;
+    background: orange;
+    border-radius: 50%;
+    animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+#countdown {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- ORIGINAL CONTENT KEPT EXACTLY SAME -->
 
 <div class="card" id="mainCard">
     <h1>🤍</h1>
@@ -149,7 +190,6 @@ button:hover {
         more than normal ppl i do love my crazy side which is you 🤍🤍🤍 
     </p>
      <img src="stitch.png" class="stitch">
-
     <button onclick="back()">Back</button>
 </div>
 
@@ -161,7 +201,6 @@ button:hover {
     • You’re annoying… but I’d still choose you.
     </p>
      <img src="stitch.png" class="stitch">
-
     <button onclick="back()">Back</button>
 </div>
 
@@ -182,10 +221,27 @@ button:hover {
 
     <img src="stitch.png" class="stitch">
 
-    <button onclick="celebrate()">Celebrate 🎉</button>
+    <button onclick="showCake()">Blow The Candles 🎂</button>
+</div>
+
+<!-- NEW CAKE CARD -->
+
+<div class="card hidden" id="cakeCard">
+    <h1>Make a Wish 🤍</h1>
+    <div id="countdown">5</div>
+
+    <div class="cake">
+        <div class="candle"></div>
+        <div class="flame" id="flame"></div>
+    </div>
+
+    <button onclick="startCountdown()">Start</button>
 </div>
 
 <script>
+
+/* -------- ORIGINAL FUNCTIONS -------- */
+
 function openCard() {
     hideAll();
     document.getElementById('birthdayCard').classList.remove('hidden');
@@ -229,14 +285,40 @@ function celebrate() {
         }, 3000);
     }
 }
+
+/* -------- NEW CAKE FUNCTIONS -------- */
+
+function showCake() {
+    hideAll();
+    document.getElementById('cakeCard').classList.remove('hidden');
+}
+
+let time = 5;
+function startCountdown() {
+    time = 5;
+    document.getElementById("countdown").innerText = time;
+    document.getElementById("flame").style.display = "block";
+
+    let interval = setInterval(() => {
+        time--;
+        document.getElementById("countdown").innerText = time;
+
+        if (time <= 0) {
+            clearInterval(interval);
+            document.getElementById("countdown").innerText = "Blow!";
+            setTimeout(() => {
+                document.getElementById("flame").style.display = "none";
+                document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
+                celebrate();
+            }, 1000);
+        }
+    }, 1000);
+}
+
 </script>
 
 </body>
 </html>
-
-
-
-
 
 
 
