@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 🤍</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.08);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        max-width: 400px;
+        transition: 0.5s ease;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        background: white;
+        color: #1e1e2f;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #ffb6c1;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: pink;
+        top: -10px;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="card" id="mainCard">
+    <h1>It’s officially 3 March in Germany 🇩🇪</h1>
+    <p>And this is just for you.</p>
+    <button onclick="openCard()">Open Your Card</button>
+</div>
+
+<div class="card hidden" id="birthdayCard">
+    <h1>Happy Birthday, [HER NAME] 🤍</h1>
+    <p>Some people don’t leave your life.<br>They just change roles.</p>
+    <button onclick="showMemory()">Memory</button>
+    <button onclick="showWhy()">Why You Matter</button>
+    <button onclick="showSecret()">Secret Message</button>
+</div>
+
+<div class="card hidden" id="memory">
+    <h1>A Memory</h1>
+    <p>Remember that one time we couldn't stop laughing over nothing?<br>
+    That’s still one of my favorite memories.</p>
+    <button onclick="back()">Back</button>
+</div>
+
+<div class="card hidden" id="why">
+    <h1>Why You Matter</h1>
+    <p>
+    • You care deeply, even when you pretend you don’t.<br>
+    • You push people to grow.<br>
+    • You never do things halfway.
+    </p>
+    <button onclick="back()">Back</button>
+</div>
+
+<div class="card hidden" id="secret">
+    <h1>Just This 🤍</h1>
+    <p>
+    No pressure. No past.<br>
+    Just gratitude that I get to know you.<br><br>
+    I hope Germany feels like home,<br>
+    but never forget someone far away is cheering for you.
+    </p>
+    <button onclick="celebrate()">Close Card</button>
+</div>
+
+<script>
+function openCard() {
+    hideAll();
+    document.getElementById('birthdayCard').classList.remove('hidden');
+}
+
+function showMemory() {
+    hideAll();
+    document.getElementById('memory').classList.remove('hidden');
+}
+
+function showWhy() {
+    hideAll();
+    document.getElementById('why').classList.remove('hidden');
+}
+
+function showSecret() {
+    hideAll();
+    document.getElementById('secret').classList.remove('hidden');
+}
+
+function back() {
+    hideAll();
+    document.getElementById('birthdayCard').classList.remove('hidden');
+}
+
+function hideAll() {
+    document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+}
+
+function celebrate() {
+    for (let i = 0; i < 50; i++) {
+        let confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = ["#ffb6c1","#ffffff","#ff69b4"][Math.floor(Math.random()*3)];
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+}
+</script>
+
+</body>
+</html>
