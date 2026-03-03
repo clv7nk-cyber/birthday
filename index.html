@@ -249,7 +249,7 @@ button:hover {
 
 function openCard() {
     hideAll();
-    document.getElementById('birthdayCard').classList.remove('hidden');
+    document.getElementById('cakeCard').classList.remove('hidden');
 }
 
 function showMemory() {
@@ -314,7 +314,12 @@ function startCountdown() {
             setTimeout(() => {
                 document.getElementById("flame").style.display = "none";
                 document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
-                celebrate();
+celebrate();
+
+setTimeout(() => {
+    hideAll();
+    document.getElementById('birthdayCard').classList.remove('hidden');
+}, 2000);
             }, 1000);
         }
     }, 1000);
@@ -324,6 +329,7 @@ function startCountdown() {
 
 </body>
 </html>
+
 
 
 
