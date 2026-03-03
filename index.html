@@ -55,6 +55,12 @@ input {
     font-weight: bold;
 }
 
+#compliment {
+    margin-top: 10px;
+    color: #ff69b4;
+    font-weight: bold;
+}
+
 #countdown {
     font-size: 30px;
     margin-bottom: 10px;
@@ -116,6 +122,7 @@ input {
 
     <input type="text" id="answerInput" placeholder="Your answer...">
     <div id="message"></div>
+    <div id="compliment"></div>
 
     <div style="margin-top:15px;">
         <button onclick="prevQuestion()">Previous</button>
@@ -161,12 +168,12 @@ const answers = [
     "dora the explorer"
 ];
     
+// Each question has a specific compliment
 const compliments = [
-    "you are pretty",
-    "you deserve the world",
-    "good one shawty"
+    "you are pretty",        // Question 1
+    "you deserve the world", // Question 2
+    "good one shawty"        // Question 3
 ];
-
 
 let currentQuestion = 0;
 let userAnswers = new Array(questions.length).fill("");
@@ -198,27 +205,28 @@ function loadQuestion() {
         userAnswers[currentQuestion];
 
     document.getElementById("message").innerText = "";
+    document.getElementById("compliment").innerText = "";
 }
 
 /* CHECK ANSWER */
 
 function checkAnswer() {
     let input = document.getElementById("answerInput").value.trim().toLowerCase();
-
     userAnswers[currentQuestion] = input;
 
     if (input === answers[currentQuestion]) {
         document.getElementById("message").innerText = "Correct 🤍";
+        document.getElementById("compliment").innerText = compliments[currentQuestion];
     } else {
-        document.getElementById("message").innerText = "Wrong 😭";
+        document.getElementById("message").innerText = " u have a fake kundi😭";
+        document.getElementById("compliment").innerText = "";
     }
 }
 
 /* NEXT */
 
 function nextQuestion() {
-    userAnswers[currentQuestion] =
-        document.getElementById("answerInput").value;
+    userAnswers[currentQuestion] = document.getElementById("answerInput").value.trim();
 
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
@@ -239,6 +247,7 @@ function nextQuestion() {
         } else {
             document.getElementById("message").innerText =
                 "All answers must be correct to continue 🤍";
+            document.getElementById("compliment").innerText = "";
         }
     }
 }
@@ -246,8 +255,7 @@ function nextQuestion() {
 /* PREVIOUS */
 
 function prevQuestion() {
-    userAnswers[currentQuestion] =
-        document.getElementById("answerInput").value;
+    userAnswers[currentQuestion] = document.getElementById("answerInput").value.trim();
 
     if (currentQuestion > 0) {
         currentQuestion--;
@@ -285,9 +293,4 @@ function startCountdown() {
 
 </body>
 </html>
-
-
-
-
-
 
