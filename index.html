@@ -7,7 +7,6 @@
 
 <style>
 
-/* -------- CLEANED BODY (merged into one) -------- */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -25,7 +24,6 @@ body {
     overflow: hidden;
 }
 
-/* -------- CARD -------- */
 .card {
     background: rgba(255,255,255,0.08);
     padding: 40px;
@@ -37,9 +35,7 @@ body {
     transition: 0.5s ease;
 }
 
-h1 {
-    margin-bottom: 20px;
-}
+h1 { margin-bottom: 20px; }
 
 button {
     margin: 10px;
@@ -53,13 +49,9 @@ button {
     transition: 0.3s;
 }
 
-button:hover {
-    background: #ffb6c1;
-}
+button:hover { background: #ffb6c1; }
 
-.hidden {
-    display: none;
-}
+.hidden { display: none; }
 
 .photo {
     width: 120px;
@@ -70,10 +62,7 @@ button:hover {
     border: 3px solid white;
 }
 
-/* -------- END IMAGES -------- */
-.end-images {
-    margin-top: 20px;
-}
+.end-images { margin-top: 20px; }
 
 .end-images img {
     width: 90px;
@@ -100,7 +89,6 @@ button:hover {
     50% { transform: translateY(-15px); }
 }
 
-/* -------- CONFETTI -------- */
 .confetti {
     position: fixed;
     width: 10px;
@@ -111,13 +99,10 @@ button:hover {
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-    }
+    to { transform: translateY(110vh) rotate(360deg); }
 }
 
-/* -------- CAKE SECTION -------- */
-
+/* Cake */
 
 .cake {
     position: relative;
@@ -163,7 +148,7 @@ button:hover {
 
 <body>
 
-<!-- ORIGINAL CONTENT KEPT EXACTLY SAME -->
+<!-- MAIN -->
 
 <div class="card" id="mainCard">
     <h1>🤍</h1>
@@ -171,63 +156,7 @@ button:hover {
     <button onclick="openCard()">OPEN</button>
 </div>
 
-<div class="card hidden" id="birthdayCard">
-    <img src="background.jpg" class="photo">
-    <h1>Happy Birthday 🤍</h1>
-    <p> i really dont care abt u thou.<br>(maybe im lying or not) </p>
-
-    <button onclick="showMemory()">Memory</button>
-    <button onclick="showWhy()">Why You Matter</button>
-    <button onclick="showSecret()">Final Surprise</button>
-</div>
-
-<div class="card hidden" id="memory">
-    <h1>A Memory 🤍</h1>
-    <p>
-   every morng a person who loves to sleep ,wake up at 530 
-        knowing a dumbass will call me and i would get a peacefull sleep,
-        talking to u has became my comfort zone for my gloofy side and 
-        my caring side even ,if i dont  act like it u do matter to me
-        more than normal ppl i do love my crazy side which is you 🤍🤍 
-    </p>
-     <img src="dora.png" class="stitch">
-    <button onclick="back()">Back</button>
-</div>
-
-<div class="card hidden" id="why">
-    <h1>Why You Matter 🤍</h1>
-    <p>
-    • You always Mattered to me .<br>
-    • i mainly miss the engine sound it is my white nose .<br>
-    • You’re annoying…
-        but I’d still choose you.
-    </p>
-     <img src="page 2.png" class="stitch">
-    <button onclick="back()">Back</button>
-</div>
-
-<div class="card hidden" id="secret">
-    <h1>Just This 🤍</h1>
-    <p>
-    More memories, more love.<br>
-    I hate the days when we don’t call at night.<br><br>
-    I loved playing Roblox with you even if you die half the time.<br>
-    HAPPY BDAY MY DORA. MAY THIS YEAR BE BETTER (CUZ I'M THERE HAHA).<br><br>
-    From Fake Kundi.
-    </p>
-
-    <div class="end-images">
-        <img src="flowers.png">
-        <img src="flowers.png">
-        <img src="chocolate.png">
-         <img src="chocolate.png">
-    </div>
-
-    <img src="stitch.png" class="stitch">
-
- 
-
-<!-- NEW CAKE CARD -->
+<!-- CAKE FIRST -->
 
 <div class="card hidden" id="cakeCard">
     <h1>Make a Wish 🤍</h1>
@@ -241,9 +170,69 @@ button:hover {
     <button onclick="startCountdown()">Start</button>
 </div>
 
-<script>
+<!-- BIRTHDAY CARD -->
 
-/* -------- ORIGINAL FUNCTIONS -------- */
+<div class="card hidden" id="birthdayCard">
+    <img src="background.jpg" class="photo">
+    <h1>Happy Birthday 🤍</h1>
+    <p>i really dont care abt u thou.<br>(maybe im lying or not)</p>
+
+    <button onclick="showMemory()">Memory</button>
+    <button onclick="showWhy()">Why You Matter</button>
+    <button onclick="showSecret()">Final Surprise</button>
+</div>
+
+<!-- MEMORY -->
+
+<div class="card hidden" id="memory">
+    <h1>A Memory 🤍</h1>
+    <p>
+        every morng a person who loves to sleep, wake up at 530 
+        knowing a dumbass will call me and i would get a peaceful sleep,
+        talking to u has became my comfort zone for my gloofy side and 
+        my caring side even, if i dont act like it u do matter to me
+        more than normal ppl i do love my crazy side which is you 🤍🤍
+    </p>
+    <img src="dora.png" class="stitch">
+    <button onclick="back()">Back</button>
+</div>
+
+<!-- WHY -->
+
+<div class="card hidden" id="why">
+    <h1>Why You Matter 🤍</h1>
+    <p>
+        • You always mattered to me.<br>
+        • I mainly miss the engine sound it is my white nose.<br>
+        • You’re annoying… but I’d still choose you.
+    </p>
+    <img src="page 2.png" class="stitch">
+    <button onclick="back()">Back</button>
+</div>
+
+<!-- SECRET -->
+
+<div class="card hidden" id="secret">
+    <h1>Just This 🤍</h1>
+    <p>
+        More memories, more love.<br>
+        I hate the days when we don’t call at night.<br><br>
+        I loved playing Roblox with you even if you die half the time.<br>
+        HAPPY BDAY MY DORA. MAY THIS YEAR BE BETTER (CUZ I'M THERE HAHA).<br><br>
+        From Fake Kundi.
+    </p>
+
+    <div class="end-images">
+        <img src="flowers.png">
+        <img src="flowers.png">
+        <img src="chocolate.png">
+        <img src="chocolate.png">
+    </div>
+
+    <img src="stitch.png" class="stitch">
+</div>
+
+<script>
 
 function openCard() {
     hideAll();
@@ -282,21 +271,12 @@ function celebrate() {
         confetti.style.backgroundColor = ["#ffb6c1","#ffffff","#ff69b4"][Math.floor(Math.random()*3)];
         confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
         document.body.appendChild(confetti);
-
-        setTimeout(() => {
-            confetti.remove();
-        }, 3000);
+        setTimeout(() => confetti.remove(), 3000);
     }
 }
 
-/* -------- NEW CAKE FUNCTIONS -------- */
-
-function showCake() {
-    hideAll();
-    document.getElementById('cakeCard').classList.remove('hidden');
-}
-
 let time = 5;
+
 function startCountdown() {
     time = 5;
     document.getElementById("countdown").innerText = time;
@@ -312,12 +292,13 @@ function startCountdown() {
             setTimeout(() => {
                 document.getElementById("flame").style.display = "none";
                 document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
-celebrate();
+                celebrate();
 
-setTimeout(() => {
-    hideAll();
-    document.getElementById('birthdayCard').classList.remove('hidden');
-}, 2000);
+                setTimeout(() => {
+                    hideAll();
+                    document.getElementById('birthdayCard').classList.remove('hidden');
+                }, 2000);
+
             }, 1000);
         }
     }, 1000);
@@ -327,10 +308,6 @@ setTimeout(() => {
 
 </body>
 </html>
-
-
-
-
 
 
 
