@@ -1,150 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 🤍</title>
-
-<style>
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-image: url("PAGE 1.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    overflow: hidden;
-}
-
-.card {
-    background: rgba(255,255,255,0.08);
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    max-width: 420px;
-    position: relative;
-    transition: 0.5s ease;
-}
-
-.hidden { display: none; }
-
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    background: white;
-}
-
-input {
-    padding: 8px;
-    border-radius: 10px;
-    border: none;
-    margin-top: 10px;
-    width: 80%;
-}
-
-#message {
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-/* Cake */
-
-.cake {
-    position: relative;
-    width: 200px;
-    height: 120px;
-    background: #ffb6c1;
-    border-radius: 10px;
-    margin: 20px auto;
-}
-
-.candle {
-    position: absolute;
-    top: -40px;
-    width: 10px;
-    height: 40px;
-    background: white;
-    left: 95px;
-}
-
-.flame {
-    position: absolute;
-    top: -60px;
-    left: 92px;
-    width: 16px;
-    height: 20px;
-    background: orange;
-    border-radius: 50%;
-    animation: flicker 0.2s infinite alternate;
-}
-
-@keyframes flicker {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
-}
-
-#countdown {
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- MAIN -->
-
-<div class="card" id="mainCard">
-    <h1>🤍</h1>
-    <p>My small gift for a wonderful person.</p>
-    <button onclick="openCard()">OPEN</button>
-</div>
-
-<!-- GAME CARD -->
-
-<div class="card hidden" id="gameCard">
-    <h1 id="question">Question 1</h1>
-    <p id="questionText">Type the first answer</p>
-    <input type="text" id="answerInput" placeholder="Your answer...">
-    <br>
-    <button onclick="checkAnswer()">Submit</button>
-    <div id="message"></div>
-</div>
-
-<!-- CAKE -->
-
-<div class="card hidden" id="cakeCard">
-    <h1>Make a Wish 🤍</h1>
-    <div id="countdown">5</div>
-
-    <div class="cake">
-        <div class="candle"></div>
-        <div class="flame" id="flame"></div>
-    </div>
-
-    <button onclick="startCountdown()">Start</button>
-</div>
-
-<!-- FINAL -->
-
-<div class="card hidden" id="birthdayCard">
-    <h1>Happy Birthday 🤍</h1>
-    <p>i really dont care abt u thou.<br>(maybe im lying or not)</p>
-</div>
-
 <script>
 
 /* Navigation */
@@ -152,6 +5,12 @@ input {
 function openCard() {
     hideAll();
     document.getElementById('gameCard').classList.remove('hidden');
+
+    currentQuestion = 1;
+    document.getElementById("question").innerText = "Question 1";
+    document.getElementById("questionText").innerText = questions[0];
+    document.getElementById("answerInput").value = "";
+    document.getElementById("message").innerText = "";
 }
 
 function hideAll() {
@@ -161,15 +20,17 @@ function hideAll() {
 /* ===== 3 QUESTION GAME ===== */
 
 let currentQuestion = 1;
-    const questions =[
-        "our fav game in roblox"
-        "which person told u to txt me after we didnt talk "
-       " what did i keep ur name as in my phone "
+
+const questions = [
+    "Our fav game in Roblox?",
+    "Which person told you to text me after we didn't talk?",
+    "What did I save your name as in my phone?"
+];
 
 const answers = [
-    "dress to impress",   // <-- CHANGE THIS TO REAL ANSWER 1
-    "mummy",   // <-- CHANGE THIS TO REAL ANSWER 2
-    "dora the explorer"    // <-- CHANGE THIS TO REAL ANSWER 3
+    "dress to impress",
+    "mummy",
+    "dora the explorer"
 ];
 
 const compliments = [
@@ -196,6 +57,7 @@ function checkAnswer() {
                 document.getElementById('cakeCard').classList.remove('hidden');
             } else {
                 document.getElementById("question").innerText = "Question " + currentQuestion;
+                document.getElementById("questionText").innerText = questions[currentQuestion - 1];
                 document.getElementById("answerInput").value = "";
                 message.innerText = "";
             }
@@ -236,8 +98,6 @@ function startCountdown() {
 
 </script>
 
-</body>
-</html>
 
 
 
