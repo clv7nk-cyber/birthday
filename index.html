@@ -35,7 +35,7 @@ body {
     transition: 0.5s ease;
 }
 
-h1 { margin-bottom: 20px; }
+.hidden { display: none; }
 
 button {
     margin: 10px;
@@ -43,26 +43,20 @@ button {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
     background: white;
-    color: #1e1e2f;
-    transition: 0.3s;
 }
 
-button:hover { background: #ffb6c1; }
-
-.hidden { display: none; }
-
-#gameArea {
-    position: relative;
-    height: 250px;
-    overflow: hidden;
-    margin-top: 15px;
-}
-
-#score {
-    font-weight: bold;
+input {
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
     margin-top: 10px;
+    width: 80%;
+}
+
+#message {
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 /* Cake */
@@ -119,13 +113,15 @@ button:hover { background: #ffb6c1; }
     <button onclick="openCard()">OPEN</button>
 </div>
 
-<!-- MINI GAME -->
+<!-- GAME CARD -->
 
 <div class="card hidden" id="gameCard">
-    <h1>Catch 5 Hearts 🤍</h1>
-    <p>Click the falling hearts!</p>
-    <div id="score">Score: 0</div>
-    <div id="gameArea"></div>
+    <h1 id="question">Question 1</h1>
+    <p id="questionText">Type the first answer</p>
+    <input type="text" id="answerInput" placeholder="Your answer...">
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <div id="message"></div>
 </div>
 
 <!-- CAKE -->
@@ -142,7 +138,7 @@ button:hover { background: #ffb6c1; }
     <button onclick="startCountdown()">Start</button>
 </div>
 
-<!-- BIRTHDAY CARD -->
+<!-- FINAL -->
 
 <div class="card hidden" id="birthdayCard">
     <h1>Happy Birthday 🤍</h1>
@@ -156,56 +152,60 @@ button:hover { background: #ffb6c1; }
 function openCard() {
     hideAll();
     document.getElementById('gameCard').classList.remove('hidden');
-    startGame();
 }
 
 function hideAll() {
     document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
 }
 
-/* ===== MINI GAME ===== */
+/* ===== 3 QUESTION GAME ===== */
 
-let score = 0;
-let gameInterval;
+let currentQuestion = 1;
+    const questions =[
+        "our fav game in roblox"
+        "which person told u to txt me after we didnt talk "
+       " what did i keep ur name as in my phone "
 
-function startGame() {
-    score = 0;
-    document.getElementById("score").innerText = "Score: 0";
-    document.getElementById("gameArea").innerHTML = "";
-    gameInterval = setInterval(createHeart, 800);
-}
+const answers = [
+    "dress to impress",   // <-- CHANGE THIS TO REAL ANSWER 1
+    "mummy",   // <-- CHANGE THIS TO REAL ANSWER 2
+    "dora the explorer"    // <-- CHANGE THIS TO REAL ANSWER 3
+];
 
-function createHeart() {
-    let heart = document.createElement("div");
-    heart.innerText = "🤍";
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * 90 + "%";
-    heart.style.top = "-20px";
-    heart.style.fontSize = "24px";
-    heart.style.cursor = "pointer";
-    heart.style.transition = "top 3s linear";
+const compliments = [
+    "you are pretty",
+    "you deserve the world",
+    "good one shawty"
+];
 
-    document.getElementById("gameArea").appendChild(heart);
+function checkAnswer() {
 
-    setTimeout(() => {
-        heart.style.top = "260px";
-    }, 50);
+    let input = document.getElementById("answerInput").value.trim().toLowerCase();
+    let message = document.getElementById("message");
 
-    heart.onclick = function() {
-        score++;
-        document.getElementById("score").innerText = "Score: " + score;
-        heart.remove();
+    if (input === answers[currentQuestion - 1]) {
 
-        if (score >= 5) {
-            clearInterval(gameInterval);
-            setTimeout(() => {
+        document.getElementById("answerInput").value = compliments[currentQuestion - 1];
+        message.innerText = "Correct 🤍";
+
+        setTimeout(() => {
+            currentQuestion++;
+
+            if (currentQuestion > 3) {
                 hideAll();
                 document.getElementById('cakeCard').classList.remove('hidden');
-            }, 500);
-        }
-    };
+            } else {
+                document.getElementById("question").innerText = "Question " + currentQuestion;
+                document.getElementById("answerInput").value = "";
+                message.innerText = "";
+            }
 
-    setTimeout(() => heart.remove(), 3000);
+        }, 1000);
+
+    } else {
+        message.innerText = 'You have a "fake kundi" 😭';
+        document.getElementById("answerInput").value = "";
+    }
 }
 
 /* ===== CAKE ===== */
@@ -238,15 +238,6 @@ function startCountdown() {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 
 
 
