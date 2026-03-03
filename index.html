@@ -53,53 +53,16 @@ button:hover { background: #ffb6c1; }
 
 .hidden { display: none; }
 
-.photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid white;
+#gameArea {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    margin-top: 15px;
 }
 
-.end-images { margin-top: 20px; }
-
-.end-images img {
-    width: 90px;
-    margin: 10px;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-.stitch {
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    width: 110px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-.confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: pink;
-    top: -10px;
-    animation: fall 3s linear infinite;
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
+#score {
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 /* Cake */
@@ -156,7 +119,16 @@ button:hover { background: #ffb6c1; }
     <button onclick="openCard()">OPEN</button>
 </div>
 
-<!-- CAKE FIRST -->
+<!-- MINI GAME -->
+
+<div class="card hidden" id="gameCard">
+    <h1>Catch 5 Hearts 🤍</h1>
+    <p>Click the falling hearts!</p>
+    <div id="score">Score: 0</div>
+    <div id="gameArea"></div>
+</div>
+
+<!-- CAKE -->
 
 <div class="card hidden" id="cakeCard">
     <h1>Make a Wish 🤍</h1>
@@ -173,107 +145,70 @@ button:hover { background: #ffb6c1; }
 <!-- BIRTHDAY CARD -->
 
 <div class="card hidden" id="birthdayCard">
-    <img src="background.jpg" class="photo">
     <h1>Happy Birthday 🤍</h1>
     <p>i really dont care abt u thou.<br>(maybe im lying or not)</p>
-
-    <button onclick="showMemory()">Memory</button>
-    <button onclick="showWhy()">Why You Matter</button>
-    <button onclick="showSecret()">Final Surprise</button>
-</div>
-
-<!-- MEMORY -->
-
-<div class="card hidden" id="memory">
-    <h1>A Memory 🤍</h1>
-    <p>
-        every morng a person who loves to sleep, wake up at 530 
-        knowing a dumbass will call me and i would get a peaceful sleep,
-        talking to u has became my comfort zone for my gloofy side and 
-        my caring side even, if i dont act like it u do matter to me
-        more than normal ppl i do love my crazy side which is you 🤍🤍
-    </p>
-    <img src="dora.png" class="stitch">
-    <button onclick="back()">Back</button>
-</div>
-
-<!-- WHY -->
-
-<div class="card hidden" id="why">
-    <h1>Why You Matter 🤍</h1>
-    <p>
-        • You always mattered to me.<br>
-        • I mainly miss the engine sound it is my white nose.<br>
-        • You’re annoying… but I’d still choose you.
-    </p>
-    <img src="page 2.png" class="stitch">
-    <button onclick="back()">Back</button>
-</div>
-
-<!-- SECRET -->
-
-<div class="card hidden" id="secret">
-    <h1>Just This 🤍</h1>
-    <p>
-        More memories, more love.<br>
-        I hate the days when we don’t call at night.<br><br>
-        I loved playing Roblox with you even if you die half the time.<br>
-        HAPPY BDAY MY DORA. MAY THIS YEAR BE BETTER (CUZ I'M THERE HAHA).<br><br>
-        From Fake Kundi.
-    </p>
-
-    <div class="end-images">
-        <img src="flowers.png">
-        <img src="flowers.png">
-        <img src="chocolate.png">
-        <img src="chocolate.png">
-    </div>
-
-    <img src="stitch.png" class="stitch">
 </div>
 
 <script>
 
+/* Navigation */
+
 function openCard() {
     hideAll();
-    document.getElementById('cakeCard').classList.remove('hidden');
-}
-
-function showMemory() {
-    hideAll();
-    document.getElementById('memory').classList.remove('hidden');
-}
-
-function showWhy() {
-    hideAll();
-    document.getElementById('why').classList.remove('hidden');
-}
-
-function showSecret() {
-    hideAll();
-    document.getElementById('secret').classList.remove('hidden');
-}
-
-function back() {
-    hideAll();
-    document.getElementById('birthdayCard').classList.remove('hidden');
+    document.getElementById('gameCard').classList.remove('hidden');
+    startGame();
 }
 
 function hideAll() {
     document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
 }
 
-function celebrate() {
-    for (let i = 0; i < 60; i++) {
-        let confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.backgroundColor = ["#ffb6c1","#ffffff","#ff69b4"][Math.floor(Math.random()*3)];
-        confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 3000);
-    }
+/* ===== MINI GAME ===== */
+
+let score = 0;
+let gameInterval;
+
+function startGame() {
+    score = 0;
+    document.getElementById("score").innerText = "Score: 0";
+    document.getElementById("gameArea").innerHTML = "";
+    gameInterval = setInterval(createHeart, 800);
 }
+
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.innerText = "🤍";
+    heart.style.position = "absolute";
+    heart.style.left = Math.random() * 90 + "%";
+    heart.style.top = "-20px";
+    heart.style.fontSize = "24px";
+    heart.style.cursor = "pointer";
+    heart.style.transition = "top 3s linear";
+
+    document.getElementById("gameArea").appendChild(heart);
+
+    setTimeout(() => {
+        heart.style.top = "260px";
+    }, 50);
+
+    heart.onclick = function() {
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+        heart.remove();
+
+        if (score >= 5) {
+            clearInterval(gameInterval);
+            setTimeout(() => {
+                hideAll();
+                document.getElementById('cakeCard').classList.remove('hidden');
+            }, 500);
+        }
+    };
+
+    setTimeout(() => heart.remove(), 3000);
+}
+
+/* ===== CAKE ===== */
 
 let time = 5;
 
@@ -288,18 +223,13 @@ function startCountdown() {
 
         if (time <= 0) {
             clearInterval(interval);
-            document.getElementById("countdown").innerText = "Blow!";
+            document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
+            document.getElementById("flame").style.display = "none";
+
             setTimeout(() => {
-                document.getElementById("flame").style.display = "none";
-                document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
-                celebrate();
-
-                setTimeout(() => {
-                    hideAll();
-                    document.getElementById('birthdayCard').classList.remove('hidden');
-                }, 2000);
-
-            }, 1000);
+                hideAll();
+                document.getElementById('birthdayCard').classList.remove('hidden');
+            }, 2000);
         }
     }, 1000);
 }
@@ -308,6 +238,7 @@ function startCountdown() {
 
 </body>
 </html>
+
 
 
 
