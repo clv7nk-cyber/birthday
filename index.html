@@ -1,290 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 🤍</title>
+<title>Birthday Surprise 🤍</title>
 
 <style>
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-image: url("PAGE 1.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    overflow: hidden;
+body{
+    margin:0;
+    font-family:Segoe UI, sans-serif;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    overflow:hidden;
 }
 
-.card {
-    background: rgba(255,255,255,0.08);
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    max-width: 420px;
-    position: relative;
-    transition: 0.5s ease;
+.card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:380px;
+    position:relative;
 }
 
-h1 { margin-bottom: 20px; }
+.hidden{display:none;}
 
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    background: white;
-    color: #1e1e2f;
-    transition: 0.3s;
+button{
+    margin-top:15px;
+    padding:8px 18px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:#ffb6c1;
+    font-weight:bold;
 }
 
-button:hover { background: #ffb6c1; }
+button:hover{background:#ff69b4;color:white}
 
-.hidden { display: none; }
+/* ================= GAME ================= */
 
-#gameArea {
-    position: relative;
-    height: 250px;
-    overflow: hidden;
-    margin-top: 15px;
+#gameArea{
+    position:relative;
+    height:250px;
+    overflow:hidden;
 }
 
-#score {
-    font-weight: bold;
-    margin-top: 10px;
+.heart{
+    position:absolute;
+    font-size:24px;
+    cursor:pointer;
+    transition:top 3s linear;
 }
 
-/* Cake */
+/* ================= CAKE ================= */
 
-.cake {
-    position: relative;
-    width: 200px;
-    height: 120px;
-    background: #ffb6c1;
-    border-radius: 10px;
-    margin: 20px auto;
+.cake-wrapper{
+    position:relative;
+    width:200px;
+    height:160px;
+    margin:20px auto;
 }
 
-.candle {
-    position: absolute;
-    top: -40px;
-    width: 10px;
-    height: 40px;
-    background: white;
-    left: 95px;
+.cake{
+    position:absolute;
+    bottom:0;
+    width:200px;
+    height:120px;
+    background:#ffb6c1;
+    border-radius:12px;
+    z-index:3;
 }
 
-.flame {
-    position: absolute;
-    top: -60px;
-    left: 92px;
-    width: 16px;
-    height: 20px;
-    background: orange;
-    border-radius: 50%;
-    animation: flicker 0.2s infinite alternate;
+.candle{
+    position:absolute;
+    bottom:120px;
+    width:10px;
+    height:40px;
+    border-radius:4px;
+    z-index:4;
 }
 
-@keyframes flicker {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
+.candle1{ left:35px; background:gold; }
+.candle2{ left:95px; background:orange; }
+.candle3{ left:155px; background:purple; }
+
+.flame{
+    position:absolute;
+    top:-18px;
+    left:-3px;
+    width:16px;
+    height:18px;
+    background:orange;
+    border-radius:50%;
+    animation:flicker 0.2s infinite alternate;
 }
 
-#countdown {
-    font-size: 30px;
-    margin-bottom: 10px;
+@keyframes flicker{
+    from{transform:scale(1)}
+    to{transform:scale(1.15)}
+}
+
+#countdown{
+    font-size:28px;
+    font-weight:bold;
+    color:#ff1493;
+}
+
+/* ================= FIREWORKS ================= */
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+    z-index:999;
+}
+
+/* ================= POPUP ================= */
+
+#popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:30px 50px;
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    font-size:24px;
+    font-weight:bold;
+    display:none;
+    z-index:2000;
 }
 
 </style>
 </head>
-
 <body>
 
 <!-- MAIN -->
-
 <div class="card" id="mainCard">
-    <h1>🤍</h1>
-    <p>My small gift for a wonderful person.</p>
-    <button onclick="openCard()">OPEN</button>
+    <h2>🤍</h2>
+    <p>My small gift for you.</p>
+    <button onclick="openGame()">OPEN</button>
 </div>
 
-<!-- MINI GAME -->
-
+<!-- GAME -->
 <div class="card hidden" id="gameCard">
-    <h1>Catch 5 Hearts 🤍</h1>
-    <p>Click the falling hearts!</p>
-    <div id="score">Score: 0</div>
+    <h3>Catch 5 Hearts 🤍</h3>
+    <p id="score">Score: 0</p>
     <div id="gameArea"></div>
 </div>
 
 <!-- CAKE -->
-
 <div class="card hidden" id="cakeCard">
-    <h1>Make a Wish 🤍</h1>
+    <h2>Make a Wish 🤍</h2>
     <div id="countdown">5</div>
 
-    <div class="cake">
-        <div class="candle"></div>
-        <div class="flame" id="flame"></div>
+    <div class="cake-wrapper">
+        <div class="cake"></div>
+
+        <div class="candle candle1"><div class="flame"></div></div>
+        <div class="candle candle2"><div class="flame"></div></div>
+        <div class="candle candle3"><div class="flame"></div></div>
     </div>
 
-    <button onclick="startCountdown()">Start</button>
+    <button id="startBtn" onclick="startCountdown()">Start</button>
+    <button id="nextBtn" class="hidden" onclick="openBirthday()">Next</button>
 </div>
 
-<!-- BIRTHDAY CARD -->
+<!-- POPUP -->
+<div id="popup">you are finally 21 kiddo 🎉</div>
 
+<!-- BIRTHDAY -->
 <div class="card hidden" id="birthdayCard">
-    <h1>Happy Birthday 🤍</h1>
+    <h2>Happy Birthday 🤍</h2>
     <p>i really dont care abt u thou.<br>(maybe im lying or not)</p>
+
+    <button onclick="showSpecial(0)">Memory</button>
+    <button onclick="showSpecial(1)">Why You Matter</button>
+    <button onclick="showSpecial(2)">Final Surprise</button>
 </div>
+
+<!-- SPECIAL -->
+<div class="card hidden" id="specialCard">
+    <h2 id="specialTitle"></h2>
+    <p id="specialText"></p>
+    <button onclick="backToBirthday()">Back</button>
+</div>
+
+<canvas id="fireworks"></canvas>
 
 <script>
 
 /* Navigation */
+function hideAll(){
+    document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+}
 
-function openCard() {
+/* ================= GAME ================= */
+
+let score=0;
+let gameInterval;
+
+function openGame(){
     hideAll();
-    document.getElementById('gameCard').classList.remove('hidden');
+    document.getElementById("gameCard").classList.remove("hidden");
     startGame();
 }
 
-function hideAll() {
-    document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+function startGame(){
+    score=0;
+    document.getElementById("score").innerText="Score: 0";
+    gameInterval=setInterval(createHeart,800);
 }
 
-/* ===== MINI GAME ===== */
-
-let score = 0;
-let gameInterval;
-
-function startGame() {
-    score = 0;
-    document.getElementById("score").innerText = "Score: 0";
-    document.getElementById("gameArea").innerHTML = "";
-    gameInterval = setInterval(createHeart, 800);
-}
-
-function createHeart() {
-    let heart = document.createElement("div");
-    heart.innerText = "🤍";
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * 90 + "%";
-    heart.style.top = "-20px";
-    heart.style.fontSize = "24px";
-    heart.style.cursor = "pointer";
-    heart.style.transition = "top 3s linear";
+function createHeart(){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerText="🤍";
+    heart.style.left=Math.random()*90+"%";
+    heart.style.top="-20px";
 
     document.getElementById("gameArea").appendChild(heart);
 
-    setTimeout(() => {
-        heart.style.top = "260px";
-    }, 50);
+    setTimeout(()=>heart.style.top="260px",50);
 
-    heart.onclick = function() {
+    heart.onclick=function(){
         score++;
-        document.getElementById("score").innerText = "Score: " + score;
+        document.getElementById("score").innerText="Score: "+score;
         heart.remove();
 
-        if (score >= 5) {
+        if(score>=5){
             clearInterval(gameInterval);
-            setTimeout(() => {
+            setTimeout(()=>{
                 hideAll();
-                document.getElementById('cakeCard').classList.remove('hidden');
-            }, 500);
+                document.getElementById("cakeCard").classList.remove("hidden");
+            },500);
         }
     };
 
-    setTimeout(() => heart.remove(), 3000);
+    setTimeout(()=>heart.remove(),3000);
 }
 
-/* ===== CAKE ===== */
+/* ================= CAKE ================= */
 
-let time = 5;
+function startCountdown(){
+    document.getElementById("startBtn").style.display="none";
 
-function startCountdown() {
-    time = 5;
-    document.getElementById("countdown").innerText = time;
-    document.getElementById("flame").style.display = "block";
+    let time=5;
+    let countdown=document.getElementById("countdown");
 
-    let interval = setInterval(() => {
+    let interval=setInterval(()=>{
         time--;
-        document.getElementById("countdown").innerText = time;
+        countdown.innerText=time;
 
-        if (time <= 0) {
+        if(time<=0){
             clearInterval(interval);
-            document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
-            document.getElementById("flame").style.display = "none";
 
-            setTimeout(() => {
-                hideAll();
-                document.getElementById('birthdayCard').classList.remove('hidden');
-            }, 2000);
+            document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
+
+            launchFireworks();
+            showPopup();
+
+            setTimeout(()=>{
+                document.getElementById("nextBtn").classList.remove("hidden");
+            },5000);
         }
-    }, 1000);
-    
-<!-- MEMORY -->
+    },1000);
+}
 
-<div class="card hidden" id="memory">
-    <h1>A Memory 🤍</h1>
-    <p>
-        every morng a person who loves to sleep, wake up at 530 
-        knowing a dumbass will call me and i would get a peaceful sleep,
-        talking to u has became my comfort zone for my gloofy side and 
-        my caring side even, if i dont act like it u do matter to me
-        more than normal ppl i do love my crazy side which is you 🤍🤍
-    </p>
-    <img src="dora.png" class="stitch">
-    <button onclick="back()">Back</button>
-</div>
+/* ================= POPUP ================= */
 
-<!-- WHY -->
+function showPopup(){
+    let popup=document.getElementById("popup");
+    popup.style.display="block";
+    setTimeout(()=>popup.style.display="none",4000);
+}
 
-<div class="card hidden" id="why">
-    <h1>Why You Matter 🤍</h1>
-    <p>
-        • You always mattered to me.<br>
-        • I mainly miss the engine sound it is my white nose.<br>
-        • You’re annoying… but I’d still choose you.
-    </p>
-    <img src="page 2.png" class="stitch">
-    <button onclick="back()">Back</button>
-</div>
+/* ================= BIRTHDAY ================= */
 
-<!-- SECRET -->
+function openBirthday(){
+    hideAll();
+    document.getElementById("birthdayCard").classList.remove("hidden");
+}
 
-<div class="card hidden" id="secret">
-    <h1>Just This 🤍</h1>
-    <p>
-        More memories, more love.<br>
-        I hate the days when we don’t call at night.<br><br>
-        I loved playing Roblox with you even if you die half the time.<br>
-        HAPPY BDAY MY DORA. MAY THIS YEAR BE BETTER (CUZ I'M THERE HAHA).<br><br>
-        From Fake Kundi.
-    </p>
+const specialCards=[
+{
+title:"Memory 🤍",
+text:"Talking to you became my comfort zone."
+},
+{
+title:"Why You Matter 🤍",
+text:"You always mattered. Even when you think you didn't."
+},
+{
+title:"Final Surprise 🤍",
+text:"Happy 21st. Whether you like it or not, you're special."
+}
+];
 
-    <div class="end-images">
-        <img src="flowers.png">
-        <img src="flowers.png">
-        <img src="chocolate.png">
-        <img src="chocolate.png">
-    </div>
+function showSpecial(i){
+    hideAll();
+    document.getElementById("specialCard").classList.remove("hidden");
+    document.getElementById("specialTitle").innerText=specialCards[i].title;
+    document.getElementById("specialText").innerText=specialCards[i].text;
+}
 
-    <img src="stitch.png" class="stitch">
-</div>
+function backToBirthday(){
+    hideAll();
+    document.getElementById("birthdayCard").classList.remove("hidden");
+}
+
+/* ================= FIREWORKS ================= */
+
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize",()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+let particles=[];
+
+function launchFireworks(){
+    for(let b=0;b<6;b++){
+        setTimeout(()=>{
+            createExplosion(
+                Math.random()*canvas.width,
+                Math.random()*canvas.height/1.5
+            );
+        },b*300);
+    }
+}
+
+function createExplosion(x,y){
+    for(let i=0;i<120;i++){
+        particles.push({
+            x:x,
+            y:y,
+            speedX:(Math.random()-0.5)*12,
+            speedY:(Math.random()-0.5)*12,
+            radius:2+Math.random()*3,
+            alpha:1,
+            color:`hsl(${Math.random()*360},100%,50%)`
+        });
+    }
+    animateFireworks();
+}
+
+function animateFireworks(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach((p,i)=>{
+        p.x+=p.speedX;
+        p.y+=p.speedY;
+        p.alpha-=0.015;
+
+        ctx.globalAlpha=p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+
+        if(p.alpha<=0){
+            particles.splice(i,1);
+        }
+    });
+
+    ctx.globalAlpha=1;
+
+    if(particles.length>0){
+        requestAnimationFrame(animateFireworks);
+    }
 }
 
 </script>
-
 </body>
 </html>
+
