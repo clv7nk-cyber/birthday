@@ -114,6 +114,27 @@ button:hover{background:#ff69b4;color:white}
     font-weight:bold;
     color:#ff1493;
 }
+    .end-images {
+    margin-top: 20px;
+}
+
+.end-images img {
+    width: 90px;
+    margin: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.stitch {
+    width: 120px;
+    margin-top: 20px;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
 
 /* ================= FIREWORKS ================= */
 
@@ -197,6 +218,17 @@ canvas{
     <button onclick="backToBirthday()">Back</button>
 </div>
 
+      <div class="end-images">
+        <img src="flowers.png">
+        <img src="flowers.png">
+        <img src="chocolate.png">
+        <img src="chocolate.png">
+    </div>
+
+    <img src="stitch.png" class="stitch">
+</div>
+
+    
 <canvas id="fireworks"></canvas>
 
 <script>
@@ -389,6 +421,7 @@ function animateFireworks(){
 </script>
 </body>
 </html>
+
 
 
 
