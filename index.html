@@ -36,11 +36,72 @@ body {
     position: relative;
 }
 
-.hidden {
-    display: none;
+.hidden { display: none; }
+
+button {
+    margin: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: white;
 }
 
-/* ===== END IMAGES ===== */
+input {
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    width: 80%;
+}
+
+#message {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* ===== CAKE ===== */
+
+.cake {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.candle {
+    position: absolute;
+    top: -40px;
+    width: 10px;
+    height: 40px;
+    background: white;
+    left: 95px;
+}
+
+.flame {
+    position: absolute;
+    top: -60px;
+    left: 92px;
+    width: 16px;
+    height: 20px;
+    background: orange;
+    border-radius: 50%;
+    animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+#countdown {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* ===== FINAL IMAGES ===== */
 
 .end-images {
     margin-top: 20px;
@@ -52,14 +113,10 @@ body {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Stitch image */
-
 .stitch {
     width: 120px;
     margin-top: 20px;
 }
-
-/* Floating animation */
 
 @keyframes float {
     0% { transform: translateY(0px); }
@@ -67,22 +124,52 @@ body {
     100% { transform: translateY(0px); }
 }
 
-button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    background: white;
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- MAIN CARD -->
+<!-- ===== MAIN OPEN SCREEN ===== -->
 
-<div class="card" id="birthdayCard">
+<div class="card" id="mainCard">
+    <h1>🤍</h1>
+    <p>My small gift for a wonderful person.</p>
+    <button onclick="openCard()">OPEN</button>
+</div>
+
+<!-- ===== GAME SECTION ===== -->
+
+<div class="card hidden" id="gameCard">
+    <h2 id="questionNumber"></h2>
+    <p id="questionText"></p>
+
+    <input type="text" id="answerInput" placeholder="Your answer...">
+    <div id="message"></div>
+
+    <div style="margin-top:15px;">
+        <button onclick="prevQuestion()">Previous</button>
+        <button onclick="checkAnswer()">Check</button>
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+</div>
+
+<!-- ===== CAKE SECTION ===== -->
+
+<div class="card hidden" id="cakeCard">
+    <h1>Make a Wish 🤍</h1>
+    <div id="countdown">5</div>
+
+    <div class="cake">
+        <div class="candle"></div>
+        <div class="flame" id="flame"></div>
+    </div>
+
+    <button onclick="startCountdown()">Start</button>
+</div>
+
+<!-- ===== FINAL SECTION ===== -->
+
+<div class="card hidden" id="birthdayCard">
     <h1>Happy Birthday 🤍</h1>
     <p>
         No pressure. No past.<br>
@@ -91,7 +178,6 @@ button {
         and everything you truly deserve.
     </p>
 
-    <!-- Images Section -->
     <div class="end-images">
         <img src="flowers.png">
         <img src="flowers.png">
@@ -99,11 +185,142 @@ button {
         <img src="chocolate.png">
     </div>
 
-    <!-- Stitch -->
     <img src="stitch.png" class="stitch">
 </div>
 
+<script>
+
+/* ===== DATA ===== */
+
+const questions = [
+    "Our fav game in Roblox?",
+    "Which person told you to text me after we didn’t talk?",
+    "What did I save your name as in my phone?"
+];
+
+const answers = [
+    "dress to impress",
+    "mummy",
+    "dora the explorer"
+];
+
+let currentQuestion = 0;
+let userAnswers = new Array(questions.length).fill("");
+
+/* ===== NAVIGATION ===== */
+
+function hideAll() {
+    document.querySelectorAll('.card').forEach(card => {
+        card.classList.add('hidden');
+    });
+}
+
+function openCard() {
+    hideAll();
+    document.getElementById('gameCard').classList.remove('hidden');
+    loadQuestion();
+}
+
+/* ===== LOAD QUESTION ===== */
+
+function loadQuestion() {
+    document.getElementById("questionNumber").innerText =
+        "Question " + (currentQuestion + 1) + " of " + questions.length;
+
+    document.getElementById("questionText").innerText =
+        questions[currentQuestion];
+
+    document.getElementById("answerInput").value =
+        userAnswers[currentQuestion];
+
+    document.getElementById("message").innerText = "";
+}
+
+/* ===== CHECK ANSWER ===== */
+
+function checkAnswer() {
+    let input = document.getElementById("answerInput").value.trim().toLowerCase();
+    userAnswers[currentQuestion] = input;
+
+    if (input === answers[currentQuestion]) {
+        document.getElementById("message").innerText = "Correct 🤍";
+    } else {
+        document.getElementById("message").innerText = 'You have a "fake kundi" 😭';
+    }
+}
+
+/* ===== NEXT ===== */
+
+function nextQuestion() {
+    userAnswers[currentQuestion] =
+        document.getElementById("answerInput").value;
+
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+    } else {
+
+        let allCorrect = true;
+
+        for (let i = 0; i < answers.length; i++) {
+            if (userAnswers[i].trim().toLowerCase() !== answers[i]) {
+                allCorrect = false;
+                break;
+            }
+        }
+
+        if (allCorrect) {
+            hideAll();
+            document.getElementById("cakeCard").classList.remove("hidden");
+        } else {
+            document.getElementById("message").innerText =
+                "All answers must be correct to continue 🤍";
+        }
+    }
+}
+
+/* ===== PREVIOUS ===== */
+
+function prevQuestion() {
+    userAnswers[currentQuestion] =
+        document.getElementById("answerInput").value;
+
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+    }
+}
+
+/* ===== CAKE ===== */
+
+let time = 5;
+
+function startCountdown() {
+    time = 5;
+    document.getElementById("countdown").innerText = time;
+    document.getElementById("flame").style.display = "block";
+
+    let interval = setInterval(() => {
+        time--;
+        document.getElementById("countdown").innerText = time;
+
+        if (time <= 0) {
+            clearInterval(interval);
+            document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
+            document.getElementById("flame").style.display = "none";
+
+            setTimeout(() => {
+                hideAll();
+                document.getElementById("birthdayCard").classList.remove("hidden");
+            }, 2000);
+        }
+    }, 1000);
+}
+
+</script>
+
 </body>
 </html>
+
 
 
