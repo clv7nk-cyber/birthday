@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🤍</title>
+<title>Birthday Surprise 🖤</title>
 
 <style>
 body{
@@ -22,16 +22,17 @@ body{
     overflow:hidden;
 }
 
+/* TRANSPARENT GLASS CARD */
 .card{
-     background: rgba(255,255,255,0.15); /* transparent glass */
-    backdrop-filter: blur(10px);        /* glass effect */
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding:40px;
     border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
     width:380px;
     position:relative;
-    border:1px solid rgba(255,255,255,0.3);
+    border:1px solid rgba(255,255,255,0.25);
 }
 
 .hidden{display:none;}
@@ -167,21 +168,21 @@ canvas{
 
 <!-- MAIN -->
 <div class="card" id="mainCard">
-    <h2>🤍</h2>
+    <h2>🖤</h2>
     <p>My small gift for you.</p>
     <button onclick="openGame()">OPEN</button>
 </div>
 
 <!-- GAME -->
 <div class="card hidden" id="gameCard">
-    <h3>Catch 5 Hearts 🤍</h3>
+    <h3>Catch 5 Hearts 🖤</h3>
     <p id="score">Score: 0</p>
     <div id="gameArea"></div>
 </div>
 
 <!-- CAKE -->
 <div class="card hidden" id="cakeCard">
-    <h2>Make a Wish 🤍</h2>
+    <h2>Make a Wish 🖤</h2>
     <div id="countdown">5</div>
 
     <div class="cake-wrapper">
@@ -199,7 +200,7 @@ canvas{
 
 <!-- BIRTHDAY -->
 <div class="card hidden" id="birthdayCard">
-    <h2>Happy Birthday 🤍</h2>
+    <h2>Happy Birthday 🖤</h2>
     <p>i really dont care abt u thou.<br>(maybe im lying or not)</p>
 
     <button onclick="showSpecial(0)">Memory</button>
@@ -242,7 +243,7 @@ function startGame(){
 function createHeart(){
     let heart=document.createElement("div");
     heart.className="heart";
-    heart.innerText="🤍";
+    heart.innerText="🖤";
     heart.style.left=Math.random()*90+"%";
     heart.style.top="-20px";
     document.getElementById("gameArea").appendChild(heart);
@@ -301,24 +302,21 @@ function openBirthday(){
 
 const specialCards=[
 {
-title:"Memory 🤍",
-text:`Talking to you became my comfort zone.
-<br><br>
+title:"Memory 🖤",
+text:`Talking to you became my comfort zone.<br><br>
 <img src="dora.png" style="width:150px;">`
 },
 {
-title:"Why You Matter 🤍",
-text:`You always mattered. Even when you think you didn't.
-<br><br>
+title:"Why You Matter 🖤",
+text:`You always mattered. Even when you think you didn't.<br><br>
 <img src="stitch.png" style="width:150px;">`
 },
 {
-title:"Final Surprise 🤍",
-text:`Happy 21st. Whether you like it or not, you're special.
-<br><br>
+title:"Final Surprise 🖤",
+text:`Happy 21st. Whether you like it or not, you're special.<br><br>
 <div class="end-images">
-    <img src="flowers.png">
-    <img src="chocolate.png">
+<img src="flowers.png">
+<img src="chocolate.png">
 </div>
 <img src="stitch.png" class="stitch">`
 }
@@ -336,7 +334,7 @@ function backToBirthday(){
     document.getElementById("birthdayCard").classList.remove("hidden");
 }
 
-/* FIREWORKS */
+/* FIREWORKS (unchanged) */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -377,28 +375,19 @@ function createExplosion(x,y){
 
 function animateFireworks(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
     particles.forEach((p,i)=>{
         p.x+=p.speedX;
         p.y+=p.speedY;
         p.alpha-=0.015;
-
         ctx.globalAlpha=p.alpha;
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
         ctx.fillStyle=p.color;
         ctx.fill();
-
-        if(p.alpha<=0){
-            particles.splice(i,1);
-        }
+        if(p.alpha<=0){particles.splice(i,1);}
     });
-
     ctx.globalAlpha=1;
-
-    if(particles.length>0){
-        requestAnimationFrame(animateFireworks);
-    }
+    if(particles.length>0){requestAnimationFrame(animateFireworks);}
 }
 
 </script>
