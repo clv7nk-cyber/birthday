@@ -9,7 +9,6 @@
 body{
     margin:0;
     font-family:Segoe UI, sans-serif;
-    background:#f2f2f2;
     background-image: url("PAGE 1.jpg");
     background-size: cover;
     background-position: center;
@@ -44,10 +43,12 @@ button{
     font-weight:bold;
 }
 
-button:hover{background:#ff69b4;color:white}
+button:hover{
+    background:#ff69b4;
+    color:white;
+}
 
-/* ================= GAME ================= */
-
+/* GAME */
 #gameArea{
     position:relative;
     height:250px;
@@ -61,8 +62,7 @@ button:hover{background:#ff69b4;color:white}
     transition:top 3s linear;
 }
 
-/* ================= CAKE ================= */
-
+/* CAKE */
 .cake-wrapper{
     position:relative;
     width:200px;
@@ -114,30 +114,27 @@ button:hover{background:#ff69b4;color:white}
     font-weight:bold;
     color:#ff1493;
 }
-    .end-images {
-    margin-top: 20px;
-}
 
-.end-images img {
-    width: 90px;
-    margin: 10px;
+/* Floating images */
+.end-images img{
+    width:90px;
+    margin:10px;
     animation: float 3s ease-in-out infinite;
 }
 
-.stitch {
-    width: 120px;
-    margin-top: 20px;
+.stitch{
+    width:120px;
+    margin-top:20px;
+    animation: float 3s ease-in-out infinite;
 }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0px); }
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-12px);}
+    100%{transform:translateY(0px);}
 }
 
-
-/* ================= FIREWORKS ================= */
-
+/* FIREWORKS */
 canvas{
     position:fixed;
     top:0;
@@ -146,8 +143,7 @@ canvas{
     z-index:999;
 }
 
-/* ================= POPUP ================= */
-
+/* POPUP */
 #popup{
     position:fixed;
     top:50%;
@@ -162,7 +158,6 @@ canvas{
     display:none;
     z-index:2000;
 }
-
 </style>
 </head>
 <body>
@@ -188,7 +183,6 @@ canvas{
 
     <div class="cake-wrapper">
         <div class="cake"></div>
-
         <div class="candle candle1"><div class="flame"></div></div>
         <div class="candle candle2"><div class="flame"></div></div>
         <div class="candle candle3"><div class="flame"></div></div>
@@ -198,7 +192,6 @@ canvas{
     <button id="nextBtn" class="hidden" onclick="openBirthday()">Next</button>
 </div>
 
-<!-- POPUP -->
 <div id="popup">you are finally 21 kiddo 🎉</div>
 
 <!-- BIRTHDAY -->
@@ -214,21 +207,10 @@ canvas{
 <!-- SPECIAL -->
 <div class="card hidden" id="specialCard">
     <h2 id="specialTitle"></h2>
-    <p id="specialText"></p>
+    <div id="specialText"></div>
     <button onclick="backToBirthday()">Back</button>
 </div>
 
-      <div class="end-images">
-        <img src="flowers.png">
-        <img src="flowers.png">
-        <img src="chocolate.png">
-        <img src="chocolate.png">
-    </div>
-
-    <img src="stitch.png" class="stitch">
-</div>
-
-    
 <canvas id="fireworks"></canvas>
 
 <script>
@@ -238,8 +220,7 @@ function hideAll(){
     document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
 }
 
-/* ================= GAME ================= */
-
+/* GAME */
 let score=0;
 let gameInterval;
 
@@ -261,7 +242,6 @@ function createHeart(){
     heart.innerText="🤍";
     heart.style.left=Math.random()*90+"%";
     heart.style.top="-20px";
-
     document.getElementById("gameArea").appendChild(heart);
 
     setTimeout(()=>heart.style.top="260px",50);
@@ -270,7 +250,6 @@ function createHeart(){
         score++;
         document.getElementById("score").innerText="Score: "+score;
         heart.remove();
-
         if(score>=5){
             clearInterval(gameInterval);
             setTimeout(()=>{
@@ -283,26 +262,20 @@ function createHeart(){
     setTimeout(()=>heart.remove(),3000);
 }
 
-/* ================= CAKE ================= */
-
+/* CAKE */
 function startCountdown(){
     document.getElementById("startBtn").style.display="none";
-
     let time=5;
     let countdown=document.getElementById("countdown");
 
     let interval=setInterval(()=>{
         time--;
         countdown.innerText=time;
-
         if(time<=0){
             clearInterval(interval);
-
             document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
-
             launchFireworks();
             showPopup();
-
             setTimeout(()=>{
                 document.getElementById("nextBtn").classList.remove("hidden");
             },5000);
@@ -310,16 +283,14 @@ function startCountdown(){
     },1000);
 }
 
-/* ================= POPUP ================= */
-
+/* POPUP */
 function showPopup(){
     let popup=document.getElementById("popup");
     popup.style.display="block";
     setTimeout(()=>popup.style.display="none",4000);
 }
 
-/* ================= BIRTHDAY ================= */
-
+/* BIRTHDAY */
 function openBirthday(){
     hideAll();
     document.getElementById("birthdayCard").classList.remove("hidden");
@@ -328,15 +299,25 @@ function openBirthday(){
 const specialCards=[
 {
 title:"Memory 🤍",
-text:"Talking to you became my comfort zone."
+text:`Talking to you became my comfort zone.
+<br><br>
+<img src="dora.png" style="width:150px;">`
 },
 {
 title:"Why You Matter 🤍",
-text:"You always mattered. Even when you think you didn't."
+text:`You always mattered. Even when you think you didn't.
+<br><br>
+<img src="stitch.png" style="width:150px;">`
 },
 {
 title:"Final Surprise 🤍",
-text:"Happy 21st. Whether you like it or not, you're special."
+text:`Happy 21st. Whether you like it or not, you're special.
+<br><br>
+<div class="end-images">
+    <img src="flowers.png">
+    <img src="chocolate.png">
+</div>
+<img src="stitch.png" class="stitch">`
 }
 ];
 
@@ -344,7 +325,7 @@ function showSpecial(i){
     hideAll();
     document.getElementById("specialCard").classList.remove("hidden");
     document.getElementById("specialTitle").innerText=specialCards[i].title;
-    document.getElementById("specialText").innerText=specialCards[i].text;
+    document.getElementById("specialText").innerHTML=specialCards[i].text;
 }
 
 function backToBirthday(){
@@ -352,8 +333,7 @@ function backToBirthday(){
     document.getElementById("birthdayCard").classList.remove("hidden");
 }
 
-/* ================= FIREWORKS ================= */
-
+/* FIREWORKS */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -421,6 +401,7 @@ function animateFireworks(){
 </script>
 </body>
 </html>
+
 
 
 
