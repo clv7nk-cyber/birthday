@@ -1,412 +1,253 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🖤</title>
+<title>For You 🤍</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Segoe UI, sans-serif;
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
     background-image: url("PAGE 1.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    text-align:center;
-    overflow:hidden;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
 }
 
-/* TRANSPARENT GLASS CARD */
-.card{
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    width:380px;
-    position:relative;
-    border:1px solid rgba(255,255,255,0.25);
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 420px;
+    position: relative;
+    transition: 0.5s ease;
 }
 
-.hidden{display:none;}
+.hidden { display: none; }
 
-button{
-    margin-top:15px;
-    padding:8px 18px;
-    border:none;
-    border-radius:20px;
-    cursor:pointer;
-    background:#ffb6c1;
-    font-weight:bold;
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: white;
 }
 
-button:hover{
-    background:#ff69b4;
-    color:black;
+input {
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    width: 80%;
 }
 
-/* GAME */
-#gameArea{
-    position:relative;
-    height:250px;
-    overflow:hidden;
+#message {
+    margin-top: 10px;
+    font-weight: bold;
 }
 
-.heart{
-    position:absolute;
-    font-size:24px;
-    cursor:pointer;
-    transition:top 3s linear;
+/* Cake */
+
+.cake {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    margin: 20px auto;
 }
 
-/* CAKE */
-.cake-wrapper{
-    position:relative;
-    width:200px;
-    height:160px;
-    margin:20px auto;
+.candle {
+    position: absolute;
+    top: -40px;
+    width: 10px;
+    height: 40px;
+    background: white;
+    left: 95px;
 }
 
-.cake{
-    position:absolute;
-    bottom:0;
-    width:200px;
-    height:120px;
-    background:#ffb6c1;
-    border-radius:12px;
-    z-index:3;
+.flame {
+    position: absolute;
+    top: -60px;
+    left: 92px;
+    width: 16px;
+    height: 20px;
+    background: orange;
+    border-radius: 50%;
+    animation: flicker 0.2s infinite alternate;
 }
 
-.candle{
-    position:absolute;
-    bottom:120px;
-    width:10px;
-    height:40px;
-    border-radius:4px;
-    z-index:4;
+@keyframes flicker {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
 }
 
-.candle1{ left:35px; background:gold; }
-.candle2{ left:95px; background:orange; }
-.candle3{ left:155px; background:purple; }
-
-.flame{
-    position:absolute;
-    top:-18px;
-    left:-3px;
-    width:16px;
-    height:18px;
-    background:orange;
-    border-radius:50%;
-    animation:flicker 0.2s infinite alternate;
+#countdown {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
-@keyframes flicker{
-    from{transform:scale(1)}
-    to{transform:scale(1.15)}
-}
-
-#countdown{
-    font-size:28px;
-    font-weight:bold;
-    color:#ff1493;
-}
-
-/* Floating images */
-.end-images img{
-    width:90px;
-    margin:10px;
-    animation: float 3s ease-in-out infinite;
-}
-
-.stitch{
-    width:120px;
-    margin-top:20px;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-    0%{transform:translateY(0px);}
-    50%{transform:translateY(-12px);}
-    100%{transform:translateY(0px);}
-}
-
-/* FIREWORKS */
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    pointer-events:none;
-    z-index:999;
-}
-
-/* POPUP */
-#popup{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background:white;
-    padding:30px 50px;
-    border-radius:20px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.3);
-    font-size:24px;
-    font-weight:bold;
-    display:none;
-    z-index:2000;
-}
 </style>
 </head>
+
 <body>
 
 <!-- MAIN -->
+
 <div class="card" id="mainCard">
-    <h2>🖤</h2>
-    <p>My small gift for you.</p>
-    <button onclick="openGame()">OPEN</button>
+    <h1>🤍</h1>
+    <p>My small gift for a wonderful person.</p>
+    <button onclick="openCard()">OPEN</button>
 </div>
 
-<!-- GAME -->
+<!-- GAME CARD -->
+
 <div class="card hidden" id="gameCard">
-    <h3>Catch 5 Hearts 🖤</h3>
-    <p id="score">Score: 0</p>
-    <div id="gameArea"></div>
+    <h1 id="question">Question 1</h1>
+    <p id="questionText"></p>
+    <input type="text" id="answerInput" placeholder="Your answer...">
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <div id="message"></div>
 </div>
 
 <!-- CAKE -->
+
 <div class="card hidden" id="cakeCard">
-    <h2>Make a Wish 🖤</h2>
+    <h1>Make a Wish 🤍</h1>
     <div id="countdown">5</div>
 
-    <div class="cake-wrapper">
-        <div class="cake"></div>
-        <div class="candle candle1"><div class="flame"></div></div>
-        <div class="candle candle2"><div class="flame"></div></div>
-        <div class="candle candle3"><div class="flame"></div></div>
+    <div class="cake">
+        <div class="candle"></div>
+        <div class="flame" id="flame"></div>
     </div>
 
-    <button id="startBtn" onclick="startCountdown()">Start</button>
-    <button id="nextBtn" class="hidden" onclick="openBirthday()">Next</button>
+    <button onclick="startCountdown()">Start</button>
 </div>
 
-<div id="popup">you are finally 21 kiddo 🎉</div>
+<!-- FINAL -->
 
-<!-- BIRTHDAY -->
 <div class="card hidden" id="birthdayCard">
-    <h2>Happy Birthday 🖤</h2>
+    <h1>Happy Birthday 🤍</h1>
     <p>i really dont care abt u thou.<br>(maybe im lying or not)</p>
-
-    <button onclick="showSpecial(0)">Memory</button>
-    <button onclick="showSpecial(1)">Why You Matter</button>
-    <button onclick="showSpecial(2)">Final Surprise</button>
 </div>
-
-<!-- SPECIAL -->
-<div class="card hidden" id="specialCard">
-    <h2 id="specialTitle"></h2>
-    <div id="specialText"></div>
-    <button onclick="backToBirthday()">Back</button>
-</div>
-
-<canvas id="fireworks"></canvas>
 
 <script>
 
-/* Navigation */
-function hideAll(){
-    document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
+/* Hide all cards */
+
+function hideAll() {
+    document.querySelectorAll('.card').forEach(card => {
+        card.classList.add('hidden');
+    });
 }
 
-/* GAME */
-let score=0;
-let gameInterval;
+/* Open Game */
 
-function openGame(){
+function openCard() {
     hideAll();
-    document.getElementById("gameCard").classList.remove("hidden");
-    startGame();
+    document.getElementById('gameCard').classList.remove('hidden');
+    currentQuestion = 0;
+    loadQuestion();
 }
 
-function startGame(){
-    score=0;
-    document.getElementById("score").innerText="Score: 0";
-    gameInterval=setInterval(createHeart,800);
-}
+/* ===== GAME LOGIC ===== */
 
-function createHeart(){
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerText="🖤";
-    heart.style.left=Math.random()*90+"%";
-    heart.style.top="-20px";
-    document.getElementById("gameArea").appendChild(heart);
+let currentQuestion = 0;
 
-    setTimeout(()=>heart.style.top="260px",50);
-
-    heart.onclick=function(){
-        score++;
-        document.getElementById("score").innerText="Score: "+score;
-        heart.remove();
-        if(score>=5){
-            clearInterval(gameInterval);
-            setTimeout(()=>{
-                hideAll();
-                document.getElementById("cakeCard").classList.remove("hidden");
-            },500);
-        }
-    };
-
-    setTimeout(()=>heart.remove(),3000);
-}
-
-/* CAKE */
-function startCountdown(){
-    document.getElementById("startBtn").style.display="none";
-    let time=5;
-    let countdown=document.getElementById("countdown");
-
-    let interval=setInterval(()=>{
-        time--;
-        countdown.innerText=time;
-        if(time<=0){
-            clearInterval(interval);
-            document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
-            launchFireworks();
-            showPopup();
-            setTimeout(()=>{
-                document.getElementById("nextBtn").classList.remove("hidden");
-            },5000);
-        }
-    },1000);
-}
-
-/* POPUP */
-function showPopup(){
-    let popup=document.getElementById("popup");
-    popup.style.display="block";
-    setTimeout(()=>popup.style.display="none",4000);
-}
-
-/* BIRTHDAY */
-function openBirthday(){
-    hideAll();
-    document.getElementById("birthdayCard").classList.remove("hidden");
-}
-
-const specialCards=[
-{
-title:"Memory 🖤",
-text:`every morng i wake up waitin for a call, a call which gives me all the comfort in the world and peace , talking to u being an unflitered person and making me happy u really r a special person to me 
-, talking to u has became my comfort zone for my gloofy side and my caring side, even 
-if i dont act care abt anything  u do matter to me more than normal ppl i do love my crazy side which is you.<br><br>
-<img src="dora.png" style="width:150px;">`
-},
-{
-title:"Why You Matter 🖤",
-text:`You always mattered. Even when you think you didn't.🖤
-* i mainly miss the engine sound its is really my white nose.🖤
-*you r annoying ..... but id still choose u and love ya 🖤 <br><br>
-<img src="stitch.png" style="width:150px;">`
-},
-{
-title:"Final Surprise 🖤",
-text:`Happy 21st. Whether you like it or not, you're special to me...I wanna live with you even when we're ghosts
-'Cause you were always there for me when I needed you most - say u wont let go  🖤 .<br><br>
-<div class="end-images">
-<img src="flowers.png">
-<img src="chocolate.png">
-</div>
-<img src="stitch.png" class="stitch">`
-}
+const questions = [
+    "Our fav game in Roblox?",
+    "Which person told you to text me after we didn’t talk?",
+    "What did I save your name as in my phone?"
 ];
 
-function showSpecial(i){
-    hideAll();
-    document.getElementById("specialCard").classList.remove("hidden");
-    document.getElementById("specialTitle").innerText=specialCards[i].title;
-    document.getElementById("specialText").innerHTML=specialCards[i].text;
+const answers = [
+    "dress to impress",
+    "mummy",
+    "dora the explorer"
+];
+
+const compliments = [
+    "you are pretty",
+    "you deserve the world",
+    "good one shawty"
+];
+
+function loadQuestion() {
+    document.getElementById("question").innerText = "Question " + (currentQuestion + 1);
+    document.getElementById("questionText").innerText = questions[currentQuestion];
+    document.getElementById("answerInput").value = "";
+    document.getElementById("message").innerText = "";
 }
 
-function backToBirthday(){
-    hideAll();
-    document.getElementById("birthdayCard").classList.remove("hidden");
-}
+function checkAnswer() {
 
-/* FIREWORKS (unchanged) */
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    let input = document.getElementById("answerInput").value.trim().toLowerCase();
+    let message = document.getElementById("message");
 
-window.addEventListener("resize",()=>{
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
+    if (input === answers[currentQuestion]) {
 
-let particles=[];
+        document.getElementById("answerInput").value = compliments[currentQuestion];
+        message.innerText = "Correct 🤍";
 
-function launchFireworks(){
-    for(let b=0;b<6;b++){
-        setTimeout(()=>{
-            createExplosion(
-                Math.random()*canvas.width,
-                Math.random()*canvas.height/1.5
-            );
-        },b*300);
+        setTimeout(() => {
+            currentQuestion++;
+
+            if (currentQuestion >= questions.length) {
+                hideAll();
+                document.getElementById('cakeCard').classList.remove('hidden');
+            } else {
+                loadQuestion();
+            }
+
+        }, 1000);
+
+    } else {
+        message.innerText = 'You have a "fake kundi" 😭';
+        document.getElementById("answerInput").value = "";
     }
 }
 
-function createExplosion(x,y){
-    for(let i=0;i<120;i++){
-        particles.push({
-            x:x,
-            y:y,
-            speedX:(Math.random()-0.5)*12,
-            speedY:(Math.random()-0.5)*12,
-            radius:2+Math.random()*3,
-            alpha:1,
-            color:`hsl(${Math.random()*360},100%,50%)`
-        });
-    }
-    animateFireworks();
-}
+/* ===== CAKE COUNTDOWN ===== */
 
-function animateFireworks(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p,i)=>{
-        p.x+=p.speedX;
-        p.y+=p.speedY;
-        p.alpha-=0.015;
-        ctx.globalAlpha=p.alpha;
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-        ctx.fillStyle=p.color;
-        ctx.fill();
-        if(p.alpha<=0){particles.splice(i,1);}
-    });
-    ctx.globalAlpha=1;
-    if(particles.length>0){requestAnimationFrame(animateFireworks);}
+let time = 5;
+
+function startCountdown() {
+    time = 5;
+    document.getElementById("countdown").innerText = time;
+    document.getElementById("flame").style.display = "block";
+
+    let interval = setInterval(() => {
+        time--;
+        document.getElementById("countdown").innerText = time;
+
+        if (time <= 0) {
+            clearInterval(interval);
+            document.getElementById("countdown").innerText = "🎉 Happy Birthday 🎉";
+            document.getElementById("flame").style.display = "none";
+
+            setTimeout(() => {
+                hideAll();
+                document.getElementById('birthdayCard').classList.remove('hidden');
+            }, 2000);
+        }
+    }, 1000);
 }
 
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
